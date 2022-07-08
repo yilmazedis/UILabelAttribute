@@ -5,10 +5,10 @@
 extension UILabel {
     
     func designAttribute(with attributes: [Attribute]){
-        let myMutableString = NSMutableAttributedString(string: self.text ?? "")
+        let attributedText = NSMutableAttributedString(string: self.text ?? "")
         
         for i in attributes {
-            myMutableString.addAttribute(i.key,
+            attributedText.addAttribute(i.key,
                                          value: i.value,
                                          range: i.range)
         }
