@@ -16,14 +16,14 @@ class ViewController: UIViewController {
         label.text = "Hello Attribute"
         return label
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemGreen
         setupLayout()
         
-        label.labelSizeChange(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), NSRange(location: 0, length: 3)),
+        label.designAttribute(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), NSRange(location: 0, length: 3)),
                                      Attribute(key: .foregroundColor, value: UIColor.red, NSRange(location: 2, length: 4)),
                                      Attribute(key: .backgroundColor, value: UIColor.blue, NSRange(location: 8, length: 4)),
                                      Attribute(key: .font, value: UIFont.systemFont(ofSize: 60), NSRange(location: 10, length: 2)),
@@ -42,7 +42,7 @@ class ViewController: UIViewController {
 
 extension UILabel {
     
-    func labelSizeChange(with attributes: [Attribute]){
+    func designAttribute(with attributes: [Attribute]){
         let myMutableString = NSMutableAttributedString(string: self.text ?? "")
         
         for i in attributes {
