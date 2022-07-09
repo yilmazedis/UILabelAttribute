@@ -8,12 +8,19 @@
 import UIKit
 
 typealias Attribute = (key: NSAttributedString.Key, value: Any, range: NSRange)
+typealias Attributes = (keys: [NSAttributedString.Key: Any], range: NSRange)
 
 class ViewController: UIViewController {
     
-    lazy var label: UILabel = {
+    lazy var labelAttribute: UILabel = {
         let label = UILabel()
         label.text = "Hello Attribute"
+        return label
+    }()
+    
+    lazy var labelAttributes: UILabel = {
+        let label = UILabel()
+        label.text = "Hello Attributes"
         return label
     }()
     
@@ -23,20 +30,40 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemGreen
         setupLayout()
         
-        label.designAttribute(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), NSRange(location: 0, length: 3)),
-                                     Attribute(key: .foregroundColor, value: UIColor.red, NSRange(location: 2, length: 4)),
-                                     Attribute(key: .backgroundColor, value: UIColor.blue, NSRange(location: 8, length: 4)),
-                                     Attribute(key: .font, value: UIFont.systemFont(ofSize: 60), NSRange(location: 10, length: 2)),
-                                     Attribute(key: .underlineColor, value: UIColor.purple, NSRange(location: 0, length: 4)),
-                                     Attribute(key: .underlineStyle, value: NSUnderlineStyle.double.rawValue, NSRange(location: 0, length: 4))
-                                    ])
+        labelAttribute.designAttribute(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), NSRange(location: 0, length: 3)),
+                                              Attribute(key: .foregroundColor, value: UIColor.red, NSRange(location: 2, length: 4)),
+                                              Attribute(key: .backgroundColor, value: UIColor.blue, NSRange(location: 8, length: 4)),
+                                              Attribute(key: .font, value: UIFont.systemFont(ofSize: 60), NSRange(location: 10, length: 2)),
+                                              Attribute(key: .underlineColor, value: UIColor.purple, NSRange(location: 0, length: 4)),
+                                              Attribute(key: .underlineStyle, value: NSUnderlineStyle.double.rawValue, NSRange(location: 0, length: 4))
+                                             ])
+        
+        labelAttributes.designAttributes(with: [Attributes(keys: [.foregroundColor: UIColor.blue,
+                                                                  .backgroundColor: UIColor.yellow,
+                                                                  .underlineStyle: 1],
+                                                           range: NSRange(location: 0, length: 5)),
+                                                Attributes(keys: [.foregroundColor: UIColor.red,
+                                                                  .backgroundColor: UIColor.blue,
+                                                                  .strikethroughStyle: 1],
+                                                            range: NSRange(location: 5, length: 5)),
+                                                Attributes(keys: [.foregroundColor: UIColor.green,
+                                                                  .backgroundColor: UIColor.black,
+                                                                  .font: UIFont.systemFont(ofSize: 40)],
+                                                            range: NSRange(location: 10, length: 6))
+                                                
+                                                ])
     }
     
     private func setupLayout(){
-        view.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        view.addSubview(labelAttribute)
+        labelAttribute.translatesAutoresizingMaskIntoConstraints = false
+        labelAttribute.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+        labelAttribute.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(labelAttributes)
+        labelAttributes.translatesAutoresizingMaskIntoConstraints = false
+        labelAttributes.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50).isActive = true
+        labelAttributes.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 
@@ -48,6 +75,16 @@ extension UILabel {
         for i in attributes {
             attributedText.addAttribute(i.key,
                                          value: i.value,
+                                         range: i.range)
+        }
+        self.attributedText = attributedText
+    }
+    
+    func designAttributes(with attributes: [Attributes]){
+        let attributedText = NSMutableAttributedString(string: self.text ?? "")
+        
+        for i in attributes {
+            attributedText.addAttributes(i.keys,
                                          range: i.range)
         }
         self.attributedText = attributedText
