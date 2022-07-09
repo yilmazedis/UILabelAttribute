@@ -12,7 +12,7 @@ extension UILabel {
                                          value: i.value,
                                          range: i.range)
         }
-        self.attributedText = myMutableString
+        self.attributedText = attributedText
     }
 }
 
