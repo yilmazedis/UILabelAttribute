@@ -30,12 +30,12 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemGreen
         setupLayout()
         
-        labelAttribute.designAttribute(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), NSRange(location: 0, length: 3)),
-                                              Attribute(key: .foregroundColor, value: UIColor.red, NSRange(location: 2, length: 4)),
-                                              Attribute(key: .backgroundColor, value: UIColor.blue, NSRange(location: 8, length: 4)),
-                                              Attribute(key: .font, value: UIFont.systemFont(ofSize: 60), NSRange(location: 10, length: 2)),
-                                              Attribute(key: .underlineColor, value: UIColor.purple, NSRange(location: 0, length: 4)),
-                                              Attribute(key: .underlineStyle, value: NSUnderlineStyle.double.rawValue, NSRange(location: 0, length: 4))
+        labelAttribute.designAttribute(with: [Attribute(key: .font, value: UIFont.systemFont(ofSize: 30), range: NSRange(location: 0, length: 3)),
+                                              Attribute(key: .foregroundColor, value: UIColor.red, range: NSRange(location: 2, length: 4)),
+                                              Attribute(key: .backgroundColor, value: UIColor.blue, range: NSRange(location: 8, length: 4)),
+                                              Attribute(key: .font, value: UIFont.systemFont(ofSize: 60), range: NSRange(location: 10, length: 2)),
+                                              Attribute(key: .underlineColor, value: UIColor.purple, range: NSRange(location: 0, length: 4)),
+                                              Attribute(key: .underlineStyle, value: NSUnderlineStyle.double.rawValue, range: NSRange(location: 0, length: 4))
                                              ])
         
         labelAttributes.designAttributes(with: [Attributes(keys: [.foregroundColor: UIColor.blue,
