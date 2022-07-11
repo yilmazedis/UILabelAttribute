@@ -154,7 +154,7 @@ class ViewController: UIViewController {
     private func setupLayout(){
         view.addSubview(labelAttribute)
         labelAttribute.translatesAutoresizingMaskIntoConstraints = false
-        labelAttribute.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
+        labelAttribute.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 240).isActive = true
         labelAttribute.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(labelAttributes)

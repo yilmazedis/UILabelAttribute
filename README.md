@@ -66,6 +66,6 @@ labelAttributes.designAttributes(with: [Attributes(keys: [.foregroundColor: UICo
 
 ## Demo
 
-|  Goal Demo                |  Goal Demo ver-2          |
-|:-------------------------:|:-------------------------:|
-<img src=img/demo.png width="214" height="463"> |<img src=img/demoVer-2.png width="214" height="463">  |
+|   Demo Ver-1              |  Demo ver-2               |        Demo ver-3         |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+<img src=img/demoVer-1.png width="214" height="463"> | <img src=img/demoVer-2.png width="214" height="463">  | <img src=img/demoVer-3.png width="214" height="463">  |
