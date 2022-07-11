@@ -24,6 +24,26 @@ class ViewController: UIViewController {
         return label
     }()
     
+    lazy var placingDocument: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    lazy var placingImage: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    lazy var placingHyperlink: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
+    lazy var enumerateAttribute: UILabel = {
+        let label = UILabel()
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,18 +72,115 @@ class ViewController: UIViewController {
                                                             range: NSRange(location: 10, length: 6))
                                                 
                                                 ])
+        enumerateAttributeExample()
+        placingDocumentExample()
+        placingImageExample()
+        placingHyperlinkExample()
+    }
+    
+    private func enumerateAttributeExample() {
+        let sentence = "the cat sat on the mat"
+        let regularAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20)]
+        let largeAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 40)]
+        let italicAttributes = [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 24)]
+        let attributedSentence = NSMutableAttributedString(string: sentence, attributes: regularAttributes)
+        
+        // Set bold
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 0, length: 3))
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 8, length: 3))
+        attributedSentence.setAttributes(largeAttributes, range: NSRange(location: 15, length: 3))
+        
+        // Set italic
+        attributedSentence.setAttributes(italicAttributes, range: NSRange(location: 4, length: 3))
+        attributedSentence.setAttributes(italicAttributes, range: NSRange(location: 12, length: 2))
+        attributedSentence.setAttributes(italicAttributes, range: NSRange(location: 19, length: 3))
+        
+        attributedSentence.enumerateAttribute(.font, in: NSRange(0..<attributedSentence.length)) { value, range, stop in
+            if let font = value as? UIFont {
+                // make sure this font is actually bold
+                if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
+                    // it's bold, so make it red too
+                    attributedSentence.addAttribute(.foregroundColor, value: UIColor.red, range: range)
+                }
+            }
+        }
+        
+        attributedSentence.enumerateAttribute(.font, in: NSRange(0..<attributedSentence.length)) { value, range, stop in
+            if let font = value as? UIFont {
+                // make sure this font is actually bold
+                if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+                    // it's bold, so make it red too
+                    attributedSentence.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: range)
+                }
+            }
+        }
+        
+        enumerateAttribute.attributedText = attributedSentence
+    }
+    
+    private func placingDocumentExample() {
+        
+        let data = Data("<img src='https://flagcdn.com/w80/tr.png' />".utf8)
+        
+        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            // use your attributed string somehow
+            placingDocument.attributedText = attributedString
+        }
+    }
+    
+    private func placingHyperlinkExample() {
+        
+        let hyperlinkString = NSMutableAttributedString(string: "Want to learn iOS? Visit Me :D")
+        hyperlinkString.addAttribute(.link, value: "https://github.com/yilmazedis",
+                                      range: NSRange(location: 25,
+                                                     length: 2))
+
+        placingHyperlink.attributedText = hyperlinkString
+    }
+    
+    private func placingImageExample() {
+        
+        let fullString = NSMutableAttributedString(string: "Your profile: ")
+        
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = UIImage(named: "Me")
+        
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        fullString.append(imageString)
+        
+        placingImage.attributedText = fullString
     }
     
     private func setupLayout(){
         view.addSubview(labelAttribute)
         labelAttribute.translatesAutoresizingMaskIntoConstraints = false
-        labelAttribute.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+        labelAttribute.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 70).isActive = true
         labelAttribute.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         view.addSubview(labelAttributes)
         labelAttributes.translatesAutoresizingMaskIntoConstraints = false
-        labelAttributes.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50).isActive = true
+        labelAttributes.centerYAnchor.constraint(equalTo: labelAttribute.bottomAnchor, constant: 50).isActive = true
         labelAttributes.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(placingDocument)
+        placingDocument.translatesAutoresizingMaskIntoConstraints = false
+        placingDocument.centerYAnchor.constraint(equalTo: labelAttributes.bottomAnchor, constant: 50).isActive = true
+        placingDocument.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(placingImage)
+        placingImage.translatesAutoresizingMaskIntoConstraints = false
+        placingImage.centerYAnchor.constraint(equalTo: placingDocument.bottomAnchor, constant: 50).isActive = true
+        placingImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(placingHyperlink)
+        placingHyperlink.translatesAutoresizingMaskIntoConstraints = false
+        placingHyperlink.centerYAnchor.constraint(equalTo: placingImage.bottomAnchor, constant: 50).isActive = true
+        placingHyperlink.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        view.addSubview(enumerateAttribute)
+        enumerateAttribute.translatesAutoresizingMaskIntoConstraints = false
+        enumerateAttribute.centerYAnchor.constraint(equalTo: placingHyperlink.bottomAnchor, constant: 50).isActive = true
+        enumerateAttribute.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 }
 
