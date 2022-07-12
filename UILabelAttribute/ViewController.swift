@@ -96,22 +96,21 @@ class ViewController: UIViewController {
         attributedSentence.setAttributes(italicAttributes, range: NSRange(location: 19, length: 3))
         
         attributedSentence.enumerateAttribute(.font, in: NSRange(0..<attributedSentence.length)) { value, range, stop in
-            if let font = value as? UIFont {
-                // make sure this font is actually bold
-                if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
-                    // it's bold, so make it red too
-                    attributedSentence.addAttribute(.foregroundColor, value: UIColor.red, range: range)
-                }
+            
+            guard let font = value as? UIFont else {
+                return
             }
-        }
-        
-        attributedSentence.enumerateAttribute(.font, in: NSRange(0..<attributedSentence.length)) { value, range, stop in
-            if let font = value as? UIFont {
-                // make sure this font is actually bold
-                if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
-                    // it's bold, so make it red too
-                    attributedSentence.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: range)
-                }
+            
+            // make sure this font is actually bold
+            if font.fontDescriptor.symbolicTraits.contains(.traitBold) {
+                // it's bold, so make it red too
+                attributedSentence.addAttribute(.foregroundColor, value: UIColor.red, range: range)
+            }
+            
+            // make sure this font is actually traitItalic
+            if font.fontDescriptor.symbolicTraits.contains(.traitItalic) {
+                // it's traitItalic, so make it systemBlue too
+                attributedSentence.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: range)
             }
         }
         
