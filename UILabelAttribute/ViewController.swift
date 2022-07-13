@@ -119,11 +119,15 @@ class ViewController: UIViewController {
     
     private func placingDocumentExample() {
         
+        let fullString = NSMutableAttributedString(string: "My flag: ")
+        
         let data = Data("<img src='https://flagcdn.com/w80/tr.png' />".utf8)
         
         if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
             // use your attributed string somehow
-            placingDocument.attributedText = attributedString
+            
+            fullString.append(attributedString)
+            placingDocument.attributedText = fullString
         }
     }
     
@@ -139,7 +143,7 @@ class ViewController: UIViewController {
     
     private func placingImageExample() {
         
-        let fullString = NSMutableAttributedString(string: "Your profile: ")
+        let fullString = NSMutableAttributedString(string: "My profile: ")
         
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = UIImage(named: "Me")
