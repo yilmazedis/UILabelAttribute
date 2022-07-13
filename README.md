@@ -110,11 +110,15 @@ private func enumerateAttributeExample() {
 ```swift
 private func placingDocumentExample() {
 
+    let fullString = NSMutableAttributedString(string: "My flag: ")
+
     let data = Data("<img src='https://flagcdn.com/w80/tr.png' />".utf8)
 
     if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
         // use your attributed string somehow
-        placingDocument.attributedText = attributedString
+
+        fullString.append(attributedString)
+        placingDocument.attributedText = fullString
     }
 }
 ```
