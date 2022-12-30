@@ -128,11 +128,14 @@ private func placingDocumentExample() {
 private func placingHyperlinkExample() {
 
     let hyperlinkString = NSMutableAttributedString(string: "Want to learn iOS? Visit Me :D")
+    let rangeLink = hyperlinkString.mutableString.range(of: "Me")
     hyperlinkString.addAttribute(.link, value: "https://github.com/yilmazedis",
-                                  range: NSRange(location: 25,
-                                                 length: 2))
+                                  range: rangeLink)
 
     placingHyperlink.attributedText = hyperlinkString
+    placingHyperlink.linkTextAttributes = [.foregroundColor: UIColor.red,
+                                                  .underlineColor: UIColor.red,
+                                                  .underlineStyle: NSUnderlineStyle.single.rawValue]
 }
 ```
 
